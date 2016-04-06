@@ -20,7 +20,7 @@ public class FactorialThread implements Runnable{
 		System.out.println("Thread " + value + " = " + FactorialUtil.factorial(value));
 		}
 		catch (InvalidParameterException e){
-			System.out.println("Factorial of a negative number is not defined.");
+			System.out.println(e.getMessage());
 		}
 	}
 

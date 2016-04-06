@@ -1,21 +1,20 @@
 package homework.factorial;
+import java.lang.reflect.*;
 
 public class Main {
 
-	public static void main(String[] args) {
-		Test test = new Test();
-		test.calcFactorial(1, 100);
+	public static void main(String[] args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		Class<?> cls = FactorialUtil.class;
+		Method[] methods = cls.getDeclaredMethods();
+		for(Method m: methods){
+			if(m.isAnnotationPresent(TestFunc.class)){
+				TestFunc testFunc = m.getAnnotation(TestFunc.class);
+				boolean res = (Boolean)m.invoke(null, testFunc.n(), testFunc.check());
+				System.out.println(m.getName() + ":" + res);
+			}
+		}		
+		
+		//Run run = new Run();
+		//run.calcFactorial(0, 10);
 	}
-	/*
-	 * check results in Python
-	import sys
-	import math
-	def factorial(x):
-	    if x == 0:
-	        return 1
-	    else:
-	        return x * factorial(x - 1)
-	for i in range (101):
-	    print str(i) + " = " +  str(factorial(i))
-	    */
 }
